@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+nginx:
+  networks:
+    - inception
+  build:
+    context: ./nginx
+    docerfile: Dockerfile
+    ports:
+      -443:443
+  mariadb:
+    networks:
+      - inception
+    build:
+      context: ./mariadb
+      docerfile: Dockerfile
+      ports:
+        -3306:3306
+      
+  wordpress:
+    networks:
+      - inception
+    build:
+      context: ./wordpress
+      docerfile: Dockerfile
+      ports:
+        -9000:9000
