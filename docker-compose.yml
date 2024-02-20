@@ -1,28 +1,32 @@
-version: '3.8'
+version: "3"
 
 services:
-nginx:
-  networks:
-    - inception
-  build:
-    context: ./nginx
-    docerfile: Dockerfile
-    ports:
-      -443:443
   mariadb:
+    container_name: mariadb			# Le nom du container, oui vraiment.
+  networks:
+  - inception            			# à quel network il appartient
+  build: 
+    context: requirements/mariadb 	# ou se trouve son Dockerfile
+    dockerfile: Dockerfile			# le nom du Dockerfile ?!
+    env_file: .env                  # le fichier d'environnement pour transmettre les variables
+  volumes:                        # Voir plus bas
+  - mariadb:/var/lib/mysql
+  restart: unless-stopped         # redémarre tant qu'il n'est pas stoppé 
+  expose:                         # le port à exposer
+  - "3306"
+
+  nginx:
+    container_name: nginx
+    volumes:
+    - wordpress:/var/www/wordpress
     networks:
-      - inception
-    build:
-      context: ./mariadb
-      docerfile: Dockerfile
+      -inception
+    depends_on:        			 # Nouvelle ligne, indiquant de ne pas démarrer NGINX tant que WordPress n'a pas démarré.
+      - wordpress
+    build: 
+      context: requirements/nginx
+      dockerfile: Dockerfile
+      env_file: .env
       ports:
-        -3306:3306
-      
-  wordpress:
-    networks:
-      - inception
-    build:
-      context: ./wordpress
-      docerfile: Dockerfile
-      ports:
-        -9000:9000
+        -"443:443" 		# on indique le port qui sera exposé a la machine locale
+restart: on-failure 		# Ici nous changeons, le container redémarrera uniquement en cas de crash.

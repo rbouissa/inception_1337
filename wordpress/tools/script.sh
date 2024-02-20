@@ -3,7 +3,9 @@ RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 sleep 10
 wp config create	--allow-root \
-                    --dbname=$SQL_DATABASE \
-					--dbuser=$SQL_USER \
-					--dbpass=$SQL_PASSWORD \
+                    --dbname= mydata \
+					--dbuser= MyUser \
+					--dbpass= 1234 \
 					--dbhost=mariadb:3306 --path='/var/www/wordpress'
+
+/usr/sbin/php-fpm7.4 -F
