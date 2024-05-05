@@ -10,4 +10,6 @@ wp config create --dbhost="mariadb" --dbname="mydata" --dbuser="MyUser" --dbpass
 # wp core install --url=$URL --title=$TITLE --admin_user=$ADMIN --admin_password=$ADMINPASS --admin_email=$ADMINEMAIL --allow-root
 # wp user create $USER $USEREMAIL --role=subscriber --user_pass=$USERPASS --allow-root
 chown -R www-data:www-data /var/www/html
+
+echo "wordpres run"
 php-fpm7.3 -F -R --nodaemonize
