@@ -23,7 +23,7 @@ volumes:
 services:
   mariadb:
     build:
-      context: mariadb/
+      context: Requirement/mariadb/
     image: mariadb
     container_name: mariadb
     networks:
@@ -39,7 +39,7 @@ services:
   
   wordpress:
     build: 
-      context: wordpress/
+      context: Requirement/wordpress/
     container_name: wordpress
     image: wordpress
     networks:
@@ -57,7 +57,7 @@ services:
     
   nginx:
     build: 
-      context: mynginx/
+      context: Requirement/mynginx/
     container_name: nginx
     image: nginx
     networks:
