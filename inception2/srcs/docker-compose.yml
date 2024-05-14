@@ -57,7 +57,7 @@ services:
     
   nginx:
     build: 
-      context: Requirement/mynginx/
+      context: Requirement/nginx/
     container_name: nginx
     image: nginx
     networks:
